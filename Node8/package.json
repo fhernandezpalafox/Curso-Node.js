@@ -1,0 +1,14 @@
+{
+  "name": "node8",
+  "version": "1.0.0",
+  "description": "Ejemplo del uso de los paquetes npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felipe Hernandez",
+  "license": "MIT",
+  "dependencies": {
+    "upper-case": "^1.1.3"
+  }
+}
