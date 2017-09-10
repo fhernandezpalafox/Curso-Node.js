@@ -28,7 +28,7 @@ var servidor = http.createServer(function(request,response){
         path = 'pages/index.html';
     }else if (path == "pages/tablaMultiplicar"){
       tablaMultiplicar(request, response);
-      return;
+      return false;
     }
   
 
@@ -80,11 +80,21 @@ function tablaMultiplicar(request, response){
 
     var tablaAMultiplicar  = url.parse(request.url,true).query.numero;
     console.log(tablaAMultiplicar);
-    var pagina = "<html><head><body>";
+
+    var pagina  ="";
+
+   if (!isNaN(tablaAMultiplicar)) //Not a Number =  NaN
+    {
+         pagina = "<html><head></head><body>";
           for (var i = 1; i <= 10; i++) {
               pagina += ""+tablaAMultiplicar+"x"+i+"="+(tablaAMultiplicar * i)+"<br/>";
           }
-         pagina += "</body></head></html>";
+         pagina += "</body></html>";
+    }else {
+
+           pagina = "<html><head></head><body>No es numero lo que estas pasando</body></html>";
+    }
+
 
      response.writeHead(200,{"content-type":"text/html"});
      response.end(pagina);

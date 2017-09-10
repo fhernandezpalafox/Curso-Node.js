@@ -16,9 +16,10 @@ var mime = {
 };
 
 
+
 var servidor = http.createServer(function(request,response){
 
-    var objUrl = url.parse(request.url);
+	var objUrl = url.parse(request.url);
 
     var path =  'pages'+objUrl.pathname;
 
@@ -28,9 +29,10 @@ var servidor = http.createServer(function(request,response){
         path = 'pages/index.html';
     }else if (path == "pages/acceso"){
       acceso(request, response);
-      return;
+      return false;
     }
-  
+
+
 
     //Verificacion de que si esta el archivo en la ruta 
     fs.exists(path, function(existe){
@@ -71,14 +73,16 @@ var servidor = http.createServer(function(request,response){
          	response.end();
          }
     });
-    
 
-});
+
+    });
+
 
 function acceso(request, response){
     var  informacion = "";
 
   request.on("data", function(datos){
+         console.log(datos);
          informacion  += datos;
     });
 
@@ -89,10 +93,21 @@ function acceso(request, response){
 
         var formulario = querystring.parse(informacion);
 
-         var pagina = "<html><head><body>"+
-         "Nombre de usuario: "+formulario["usuario"]+"<br/>"+
-         "Clave: "+formulario["pass"]+""+
-         "</body></head></html>";
+         console.log(formulario);
+
+       var pagina ="";
+
+        if (formulario["usuario"] != undefined && formulario["pass"] != undefined) {
+
+	           pagina = "<html><head><body>"+
+	         "Nombre de usuario: "+formulario["usuario"]+"<br/>"+
+	         "Clave: "+formulario["pass"]+""+
+	         "</body></head></html>";
+        }else {
+        	   pagina = "<html><head><body>Debes poner tus credenciales primero</body></head></html>";
+        }
+
+        
     
         response.writeHead(200,{"content-type":"text/html"});
         response.end(pagina);
