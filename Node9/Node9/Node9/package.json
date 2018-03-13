@@ -1,0 +1,14 @@
+{
+  "name": "node9",
+  "version": "1.0.0",
+  "description": "Utilizar el paquete de MSSQL npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felipe Hernandez",
+  "license": "MIT",
+  "dependencies": {
+    "mssql": "^4.0.4"
+  }
+}

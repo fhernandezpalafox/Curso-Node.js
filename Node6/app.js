@@ -69,7 +69,7 @@ var servidor = http.createServer(function(request,response){
          	});
          }else{
          	response.writeHead(404,{'Content-Type':'text/html'});
-         	response.write('<html><head><body>Recurso no existe 404</body></head></html>');
+         	response.write('<html><head></head><body>Recurso no existe 404</body></html>');
          	response.end();
          }
     });
@@ -99,12 +99,12 @@ function acceso(request, response){
 
         if (formulario["usuario"] != undefined && formulario["pass"] != undefined) {
 
-	           pagina = "<html><head><body>"+
+	           pagina = "<html><head></head><body>"+
 	         "Nombre de usuario: "+formulario["usuario"]+"<br/>"+
 	         "Clave: "+formulario["pass"]+""+
-	         "</body></head></html>";
+	         "</body></html>";
         }else {
-        	   pagina = "<html><head><body>Debes poner tus credenciales primero</body></head></html>";
+        	   pagina = "<html><head></head><body>Debes poner tus credenciales primero</body></html>";
         }
 
         
@@ -119,3 +119,9 @@ function acceso(request, response){
 servidor.listen(8000);
 
 console.log("Servidor Web Iniciado");
+
+
+
+
+
+

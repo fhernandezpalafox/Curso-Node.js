@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+    <p><button onclick="Localizar()">Geolocalizacion</button></p>
+ <div id="map"></div>
+ 
+
+ <style type="text/css">
+   #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 20px;
+        padding: 0px;
+      }
+ </style>
+
+    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyBHCAZ59-XRJXCmaKGGeLhGZ_AaQXU5J54&language=en&libraries=places"></script>
+   
+
+   <script type="text/javascript">
+
+  var map;
+  var miUbicacion = {};
+
+  var laSalleBajio  = {
+	  	lat:21.150908,
+	  	lng:-101.71110470000002
+  }
+
+
+  function initMap() {
+
+      var mapDiv = document.getElementById('map');
+
+      var mapOptions = {
+      	center: laSalleBajio,
+      	zoom:20,
+      	mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+
+	   map = new google.maps.Map(mapDiv,mapOptions);
+
+     //Localizar();
+
+     if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            marker = new google.maps.Marker({
+                map: map,
+                position: pos
+            });
+
+        });
+     }
+}
+
+window.onload =  function(){
+    initMap();
+}
+
+
+function  Localizar(){
+
+ /*if (Modernizr.geolocation) {
+    // supported
+    alert("soportado");
+    } else {
+    // not-supported
+    alert("no soportado");
+    }*/
+
+  if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(successFunction, errorFunction,{
+                                       		enableHighAccuracy: true,
+                                       		maximumAge:         5000,
+                                       		timeout:            10000
+                                         });
+  } else {
+      alert("Tu navegador no soporta Geolocalizacion!");
+  }
+ 
+/*
+  navigator.geolocation.getCurrentPosition(
+  function(position){
+
+      miUbicacion.lat =  position.coords.latitude;
+      miUbicacion.lng =  position.coords.longitude;
+
+      map.setCenter(miUbicacion);
+
+      agregarMarker(miUbicacion);
+      agregarMarker(laSalleBajio);
+
+
+  },function(error){
+
+    alert("error de localizacion");
+
+  });
+
+  */
+}
+
+function successFunction(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    //alert(lat);
+   // alert(lng);
+    codeLatLong(lat, lng);
+}
+
+function errorFunction(error) {
+    var appErrMessage = null;
+    if (error.core == error.PERMISSION_DENIED) {
+        alert('El usuario no ha concedido los privilegios de geolocalización');
+    } else if (error.core == error.POSITION_UNAVAILABLE) {
+        alert('Posicion no disponible');
+    } else if (error.core == error.TIMEOUT) {
+        alert('Demasiado tiempo intentando obtener la localización del usuario.');
+    } else if (error.core == error.UNKNOWN) {
+        alert('Error desconocido');
+    } else {
+        alert('Error insesperado');
+    }
+}
+
+
+function codeLatLong(lat, lng) {
+   
+  var miUbicacion  = {
+	  	lat:lat,
+	  	lng:lng
+  }
+
+   agregarMarker(miUbicacion);
+
+   map.setCenter(miUbicacion);
+
+}
+
+function agregarMarker(ubicacion){
+
+  var marker  =  new google.maps.Marker({
+       map: map,
+       position: ubicacion
+  });
+}
+
+ </script>
+</body>
+</html>

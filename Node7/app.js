@@ -67,7 +67,7 @@ var servidor = http.createServer(function(request,response){
          	});
          }else{
          	response.writeHead(404,{'Content-Type':'text/html'});
-         	response.write('<html><head><body>Recurso no existe 404</body></head></html>');
+         	response.write('<html><head></head><body>Recurso no existe 404</body></html>');
          	response.end();
          }
     });

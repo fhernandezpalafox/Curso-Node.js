@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>-->
+</head>
+<body>
+
+ <div id="map" style="float:left"></div>
+ <div id="vistaPanorama" style="float:left"></div>
+ <div style="clear:both"></div>
+ <script type="text/javascript">
+
+  var laSalleBajio  = {
+	  	lat:21.150908,
+	  	lng:-101.71110470000002
+  }
+
+
+
+  function initMap() {
+
+      var map =  new google.maps.Map(document.getElementById("map"),{
+        center: laSalleBajio,
+        zoom:14
+      });
+
+      var panorama  =  new google.maps.StreetViewPanorama(
+             document.getElementById("vistaPanorama"), {
+               position:laSalleBajio,
+               pov:{
+                 heading:34,
+                 pitch:10
+               }
+             });
+
+      map.setStreetView(panorama);
+
+     }
+ </script>
+
+ <style type="text/css">
+   #map, #vistaPanorama {
+        height: 100%;
+        width: 45%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 20px;
+        padding: 0px;
+      }
+ </style>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdJ0cO3Tq6rgABJcqn1tUPvxoJbTNzyZQ&callback=initMap"
+    async defer></script>
+
+</body>
+</html>

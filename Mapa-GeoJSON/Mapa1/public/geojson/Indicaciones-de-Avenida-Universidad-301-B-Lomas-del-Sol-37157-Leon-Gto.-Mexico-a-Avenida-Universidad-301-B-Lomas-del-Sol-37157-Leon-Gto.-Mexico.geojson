@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Indicaciones de Avenida Universidad 301 B, Lomas del Sol, 37157 León, Gto., México a Avenida Universidad 301 B, Lomas del Sol, 37157 León, Gto., México", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": 1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "LineString", "coordinates": [ [ -101.71081, 21.1513, 0.0 ], [ -101.71076, 21.15148, 0.0 ] ] } },
+{ "type": "Feature", "properties": { "Name": "Avenida Universidad 301 B, Lomas del Sol, 37157 León, Gto., México", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ -101.7108087, 21.151304, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Avenida Universidad 301 B, Lomas del Sol, 37157 León, Gto., México", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ -101.710764, 21.151484, 0.0 ] } }
+]
+}

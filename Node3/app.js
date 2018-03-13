@@ -4,8 +4,9 @@ var fs = require('fs');
 
 
 //Creaccion del archivo
-/*
-fs.writeFile('./archivoPrueba.txt','Este es un texto un poco largo\nRealizado por Felipe HP',function(error){
+
+fs.writeFile('./archivoPrueba.txt','Este es un texto un poco largo\nRealizado por' +
+	'felipe HP',function(error){
 	if (error) 
 	{
 		console.log(error)
@@ -13,7 +14,7 @@ fs.writeFile('./archivoPrueba.txt','Este es un texto un poco largo\nRealizado po
 		console.log('Se creo el archivo correctamente');
 	}
 });
-*/
+
 
 
 //Leer el archivo 
@@ -30,7 +31,7 @@ fs.readFile('./archivoPrueba.txt',function(error,datos){
 var servidor = http.createServer(function(req,resp){
 
    resp.writeHead(200,{'Content-Type':'text/html'});
-   resp.write('<html><head><body> Los Datos leidos son: '+datosArchivo+'</body></head></html>');
+   resp.write('<html><head></head><body> Los Datos leidos son: '+datosArchivo+'</body></html>');
     //N(n)
    resp.end();
 

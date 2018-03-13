@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+ <div style="">
+   <input type="text" placeholder="Buscar..." id="txtBuscar" style="font-size: 30px;width: 40%;margin-top: 5%;z-index:9">
+ </div>
+ <div id="map"></div>
+ <script type="text/javascript">
+ 	
+  var map;
+
+  var miUbicacion = {};
+
+  var laSalleBajio  = {
+	  	lat:21.150908,
+	  	lng:-101.71110470000002
+  }
+
+  var miCasa  = {
+     lat:21.1268124,
+     lng:-101.65221529999997
+  }
+
+  function initMap() {
+
+      var mapDiv = document.getElementById('map');
+
+      var mapOptions = {
+      	center: laSalleBajio,
+      	zoom:20,
+      	mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+    
+	   map = new google.maps.Map(mapDiv,mapOptions);
+
+     Localizar();
+
+     buscarMapa();
+
+     trazarRuta();
+}
+
+
+function  Localizar(){
+  
+  navigator.geolocation.getCurrentPosition(
+  function(position){
+
+      miUbicacion.lat =  position.coords.latitude;
+      miUbicacion.lng =  position.coords.longitude; 
+
+      map.setCenter(miUbicacion);
+
+      agregarMarker(miUbicacion);
+      agregarMarker(laSalleBajio);
+
+
+  },function(error){
+
+    alert("error de localizacion");
+
+  });
+}
+
+
+function agregarMarker(ubicacion){
+
+  var marker  =  new google.maps.Marker({
+       map: map,
+       position: ubicacion
+  });
+}
+
+function buscarMapa(){
+  var txtbuscar =  document.getElementById("txtBuscar");
+
+  var searchBox  =  new google.maps.places.SearchBox(txtbuscar);
+
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(txtbuscar);
+
+  searchBox.addListener('places_changed', function(){
+      var places =  searchBox.getPlaces();
+
+      places.forEach(function(place){
+          
+          var ubicacion  =  place.geometry.location;
+
+          agregarMarker(ubicacion);
+
+          map.setCenter(ubicacion);
+
+          trazarRuta2(ubicacion);
+
+      })
+  });
+}
+
+function trazarRuta(){
+
+ console.log("trazar una ruta");
+
+  var directionsDisplay  =  new google.maps.DirectionsRenderer({
+       map: map
+  });
+
+
+  var request  =  {
+     
+     destination:laSalleBajio,
+     origin:miCasa,
+     travelMode: google.maps.TravelMode.TRANSIT
+
+  }
+
+/*
+DRIVING
+WALKING
+BICYCLING
+TRANSIT
+*/
+
+  var directionsService  =  new google.maps.DirectionsService();
+
+  directionsService.route(request, function(response,status){
+
+    if (status  ==  google.maps.DirectionsStatus.OK) {
+       console.log(response);
+        directionsDisplay.setDirections(response);
+    }
+  
+  });
+
+}
+
+
+
+function trazarRuta2(ubicacion){
+
+ console.log("trazar una ruta");
+
+  var directionsDisplay  =  new google.maps.DirectionsRenderer({
+       map: map
+  });
+
+
+  var request  =  {
+     
+     destination:ubicacion,
+     origin:miCasa,
+     travelMode: google.maps.TravelMode.WALKING
+
+  }
+
+  var directionsService  =  new google.maps.DirectionsService();
+
+  directionsService.route(request, function(response,status){
+
+    if (status  ==  google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+    }
+  
+  });
+
+}
+
+ </script>
+
+ <style type="text/css">
+   #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 20px;
+        padding: 0px;
+      }
+ </style>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHCAZ59-XRJXCmaKGGeLhGZ_AaQXU5J54&callback=initMap&libraries=places"
+    async defer></script>
+    
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+
+
+ <a href="https://developers.google.com/places/supported_types?hl=es-419" target="_blank">Lugares de google</a>
+ <div style="clear:both;height:10px"></div>
+ <div id="map"></div>
+ <script type="text/javascript">
+
+      var map;
+      var infowindow;
+
+      var laSalleBajio  = {
+          lat:21.150908,
+          lng:-101.71110470000002
+      }
+
+
+      function initMap() {
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: laSalleBajio,
+          zoom: 15
+        });
+
+        infowindow = new google.maps.InfoWindow(); //los tooltip que aparecen cuando se le de click en el market
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch({
+          location: laSalleBajio, //location que tomara en cuenta para buscar apartir de ahi
+          radius: 5000, //en metros
+          type: ['school'] //hospital //police //cafe
+        }, callback);
+      }
+
+      function callback(results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) { //con base el resultado iteramos con el for
+            console.log(results);
+            createMarker(results[i]);
+          }
+        }
+      }
+
+      function createMarker(place) { //se crear los merkets y se pasa el objeto place para extraer informacion
+        var placeLoc = place.geometry.location;
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location,
+          icon: place.icon
+          /*
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+          */
+        });
+
+         //Evento de escucha
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(place.name+"<br/>"+place.vicinity);
+          infowindow.open(map, this);
+        });
+      }
+ </script>
+
+ <style type="text/css">
+   #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 20px;
+        padding: 0px;
+      }
+ </style>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdJ0cO3Tq6rgABJcqn1tUPvxoJbTNzyZQ&callback=initMap&libraries=places"
+    async defer></script>
+
+</body>
+</html>

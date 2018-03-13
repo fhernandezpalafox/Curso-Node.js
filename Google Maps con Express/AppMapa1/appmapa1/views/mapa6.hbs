@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+
+<div id="buscar" style="margin-top: 5%;margin-right: 10%;">
+  <input type="button" name="btnBuscar" id="btnBuscar" value="Buscar" style="font-size: 20px" onclick="BuscarEnMapa();">
+</div>
+
+ <div id="capaBuscar">
+   <input type="text" placeholder="Origen..." id="txtOrigen" style="font-size: 30px;margin-top: 5%;z-index:9">
+   <div style="clear:both;height:15px"></div>
+   <input type="text" placeholder="Destino..." id="txtDestino" style="font-size: 30px;margin-top: 5%;z-index:9">
+ </div>
+
+ <div id="floating-panel" style="font-size: 20px;margin-top: 5%;">
+    <select id="modoViaje" style="font-size: 24px">
+      <option value="DRIVING">Coche</option>
+      <option value="WALKING">Caminando</option>
+      <option value="BICYCLING">Bicicleta</option>
+      <option value="TRANSIT">Transito</option>
+    </select>
+    </div>
+
+ <div id="map"></div>
+ <div id="panel"></div>
+ <script type="text/javascript">
+
+  var map;
+  var miUbicacion = {};
+  var markers = [];
+
+  var directionsDisplay;
+  var directionsService;
+
+
+  var laSalleBajio  = {
+	  	lat:21.150908,
+	  	lng:-101.71110470000002
+  }
+
+  var miCasa  = {
+     lat:21.1268124,
+     lng:-101.65221529999997
+  }
+
+  var ubicacionOrigen;
+  var ubicacionDestino;
+
+  function initMap() {
+
+       directionsDisplay = new google.maps.DirectionsRenderer;
+       directionsService = new google.maps.DirectionsService;
+
+      var mapDiv = document.getElementById('map');
+
+      //Opciones
+      var mapOptions =
+      {
+      	center: laSalleBajio,
+      	zoom:20,
+        zoomControl:true,
+        mapTypeControl: true,
+        mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+            mapTypeIds: ['roadmap', 'terrain','satellite','hybrid']
+        }
+      }
+
+      directionsDisplay.setMap(map);
+      directionsDisplay.setPanel(document.getElementById("panel"));
+
+	   map = new google.maps.Map(mapDiv,mapOptions);
+
+     Localizar();
+
+     buscarMapa();
+
+     //Evento modo de viaje
+     document.getElementById('modoViaje').addEventListener('change', function() {
+
+           directionsDisplay.setMap(map);
+
+          calcularMostrarRutaTrazada(directionsService, directionsDisplay);
+     });
+
+
+
+}
+
+
+function  Localizar(){
+
+  navigator.geolocation.getCurrentPosition(
+  function(position){
+
+      miUbicacion.lat =  position.coords.latitude;
+      miUbicacion.lng =  position.coords.longitude;
+
+      map.setCenter(miUbicacion);
+
+      agregarMarker(miUbicacion);
+
+  },function(error){
+
+    alert("error de localizacion");
+
+  });
+}
+
+
+function agregarMarker(ubicacion){
+
+  var marker  =  new google.maps.Marker({
+       map: map,
+       position: ubicacion
+  });
+
+  markers.push(marker);
+}
+
+function buscarMapa(){
+  var capaBuscar =  document.getElementById("capaBuscar");
+
+  var modoViaje  =  document.getElementById("floating-panel");
+
+  var contenidoBuscar  =  document.getElementById("buscar");
+
+  //cajas de texto
+  var txtOrigen  =  document.getElementById("txtOrigen");
+  var txtDestino  =  document.getElementById("txtDestino");
+
+  var  searchBoxOrigen  =  new google.maps.places.SearchBox(txtOrigen);
+  var searchBoxDestino  =  new google.maps.places.SearchBox(txtDestino);
+
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(capaBuscar);
+
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(modoViaje);
+
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(contenidoBuscar);
+
+
+  searchBoxOrigen.addListener('places_changed', function(){
+
+      var places =  searchBoxOrigen.getPlaces();
+
+      places.forEach(function(place){
+
+          ubicacionOrigen  =  place.geometry.location;
+
+          agregarMarker(ubicacionOrigen);
+
+          map.setCenter(ubicacionOrigen);
+
+      })
+  });
+
+
+  searchBoxDestino.addListener('places_changed', function(){
+
+      var places =  searchBoxDestino.getPlaces();
+
+      places.forEach(function(place){
+
+          ubicacionDestino  =  place.geometry.location;
+
+          agregarMarker(ubicacionDestino);
+
+          map.setCenter(ubicacionDestino);
+
+      })
+  });
+}
+
+
+function BuscarEnMapa(){
+
+  eliminarMarkers();
+
+  console.log("trazar una ruta");
+
+   directionsDisplay.setMap(map);
+
+  var selectedMode = document.getElementById('modoViaje').value;
+
+   var request  =  {
+
+      destination:ubicacionDestino,
+      origin:ubicacionOrigen,
+      travelMode: google.maps.TravelMode[selectedMode]
+
+   }
+
+   directionsService.route(request, function(response,status){
+
+     if (status  ==  google.maps.DirectionsStatus.OK) {
+         directionsDisplay.setDirections(response);
+     }
+
+   });
+
+}
+
+
+//eliminar Markerts
+  function setMapOnAll(map) {
+    console.log(markers);
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  }
+
+  function eliminarMarkers() {
+    setMapOnAll(null);
+  }
+
+
+
+function calcularMostrarRutaTrazada(directionsService, directionsDisplay) {
+
+        eliminarMarkers();
+
+        console.log("calcular mostrar ruta trazada")
+
+        var selectedMode = document.getElementById('modoViaje').value;
+
+        directionsService.route({
+
+          origin: ubicacionOrigen,
+          destination: ubicacionDestino,
+          travelMode: google.maps.TravelMode[selectedMode]
+
+        }, function(response, status) {
+            if (status == 'OK') {
+              directionsDisplay.setDirections(response);
+            } else {
+              window.alert('error ' + status);
+            }
+        });
+      }
+
+ </script>
+
+ <style type="text/css">
+   #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 20px;
+        padding: 0px;
+      }
+ </style>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHCAZ59-XRJXCmaKGGeLhGZ_AaQXU5J54&callback=initMap&libraries=places"
+    async defer></script>
+
+</body>
+</html>

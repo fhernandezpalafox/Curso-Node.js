@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+
+
+	<script type="text/javascript" src="/javascripts/jquery.ValidationEngine-es.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.ValidationEngine.js"></script>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/validationEngine.jquery.css">
+
+   <script type="text/javascript" src="/javascripts/bootstrap.js"></script>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
+    
+  <script type="text/javascript" src="/javascripts/bootstrap-dialog.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-dialog.min.css">
+	
+	</head>
+  <body>
+     <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Sistema</a>
+    </div>
+     
+     <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+        <li class="{{ActivarLink page 'datos'}}"><a href="/alumnos/datos">Datos<span class="sr-only">(current)</span></a></li>
+
+        
+         <li class="{{ActivarLink page 'alumnos'}}"><a href="/alumnos">Alumnos<span class="sr-only">(current)</span></a></li>
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Salir</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+
+  </div><!-- /.container-fluid -->
+</nav>
+
+    <div class="container-fluid" 
+    style="padding-left: 20px;padding-right: 20px">
+    	{{{body}}}
+    </div>
+
+  </body>
+</html>

@@ -6,8 +6,10 @@ var Oper = require('./Operaciones.js');
 var servidor = http.createServer(function(req,resp){
 
    resp.writeHead(200,{'Content-Type':'text/html'});
-   resp.write('<html><head><body>El resultado de la operacion de 2 * 2 es '+Oper.multiplicacion(2,2)+'</body></head></html>');
-    //N(n)
+
+   resp.write('<html><head></head><body>El resultado de la operacion de 2 * 2 es '
+   	+Oper.multiplicacion(2,2)+'</body></html>');
+
    resp.end();
 
 });

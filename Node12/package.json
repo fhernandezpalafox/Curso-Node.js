@@ -1,0 +1,14 @@
+{
+  "name": "node12",
+  "version": "1.0.0",
+  "description": "Ejercicio trabajando con node express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felipe hernandez",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}
