@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mapa</title>
+</head>
+<div>
+    {{informacion}}
+</div>
+
+<div style="clear: both;height:20px"></div>
+    
+ <div id="map"></div>
+ <script type="text/javascript">
+  var map;
+  var laSalleBajio  = {
+	  	lat:21.150908,
+	  	lng:-101.71110470000002
+  }
+
+
+  function initMap() {
+      var mapDiv = document.getElementById('map');
+      var mapOptions = {
+      	center: laSalleBajio,
+      	zoom:20,
+      	mapTypeId: google.maps.MapTypeId.ROADMAP
+      }
+	   map = new google.maps.Map(mapDiv,mapOptions);
+}
+ </script>
+
+ <style type="text/css">
+   #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 20px;
+        padding: 0px;
+      }
+ </style>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHCAZ59-XRJXCmaKGGeLhGZ_AaQXU5J54&callback=initMap"
+    async defer></script>
+</body>
+</html

@@ -1,0 +1,44 @@
+<script src="javascripts/jquery-3.3.1.min.js"></script>
+
+<h1>{{title}}</h1>
+<p>Bienvenido a {{title}}</p>
+
+<div style="clear:both;height:20px"></div>
+
+<input type="button" id="btnLeer" value="Leer Archivo" />
+
+<input type="button" id="btnEscribir" value="Escribir Archivo" />
+
+<input type="button" id="btnMapa" value="Mapa" />
+
+
+<script>
+    $(document).ready(function(){
+            $("#btnLeer").click(function(){
+            $.get("alumnos/leerArchivo", function(data, status){
+                alert("Data: " + data + "\nStatus: " + status);
+            });
+        });
+
+        $("#btnEscribir").click(function(){
+            $.get("alumnos/escribirArchivo", function(data, status){
+                alert("Data: " + data + "\nStatus: " + status);
+
+                crearArchivoConParametro();
+            });
+        });
+
+
+        function crearArchivoConParametro(){
+             $.get("alumnos/escribirArchivoFormulario",{param:"felipe hernandez palafox"},function(data, status){
+                alert("Data: " + data + "\nStatus: " + status);
+            });
+        }
+
+       $("#btnMapa").click(function(){
+             window.location.href = "alumnos/mapa";
+           
+        });
+
+});
+</script>
