@@ -93,4 +93,26 @@ router.post("/getpointsAll", (req, res)=> {
    });
 
 });
+
+
+router.post("/getDatosAlumno", (req, res)=> {
+
+    let query = { photos: {'$regex': req.body.matricula} };
+
+    mongoCliente.connect(url, function(err,db){
+    if (err) throw err;
+
+    db.collection("alumnos").find(query).toArray(function(err,result){
+        
+        if (err) throw err;
+        console.log(result);
+
+        res.json(result); 
+        
+        db.close();
+    });
+    
+   });
+
+});
 module.exports = router;

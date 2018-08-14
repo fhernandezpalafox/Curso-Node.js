@@ -21,6 +21,8 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+var io  = require("socket.io")(server);
+
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -88,3 +90,55 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+//desarrollo del chat usando socket.io
+var usuariosLogeados = [];
+var marcadores = [];
+
+io.sockets.on("connection", function(socket){
+
+  //cuando el cliente emita su usuario
+  socket.on("agrega usuario", function(usuario){
+ 
+    //console.log(usuario);
+    
+    //validacion de doble usuario 
+    usuariosLogeados.push(usuario); // se aguarda en el arreglo
+
+    io.sockets.emit("usuarioLogeado",usuario);
+
+    io.sockets.emit("usuarios",usuariosLogeados); //emitimos a los demas usuarios cuando se conecte
+
+    //Cuando el usuario ya esta logeado  entonces podemos dejar que emita mensajes
+    socket.on("mensaje",function(usuario,mensaje,usuarioDestino,idMensaje){
+      //podemos emitir solo el mensaje pero tambien podemos ver que lo esta poniendo
+      //por ello mismo se le va pasar dos parametros para ver el usuario quien lo esta emitiendo
+      io.sockets.emit("mensaje",usuario,mensaje,usuarioDestino,idMensaje);
+
+    });
+
+    //agregar un marcador
+    socket.on("agregar marcador", function(usuario, marcador){
+
+      marcadores.push(marcador);
+
+      io.sockets.emit("agregar marcador",usuario, marcador);
+
+      io.sockets.emit("marcadores",marcadores);
+    });
+
+    //cuando un usuario se desconecte, se elimina su respectivo usuario de nuestro arreglo y lo semitimos a todos los demas
+    socket.on("disconnect", function(socket){
+
+      usuariosLogeados.splice(usuariosLogeados.indexOf(usuario), 1);
+
+      io.sockets.emit("usuarios",usuariosLogeados); 
+
+    });
+
+  });
+
+  
+
+});

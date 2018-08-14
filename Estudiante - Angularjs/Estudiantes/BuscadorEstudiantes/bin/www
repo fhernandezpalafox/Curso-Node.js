@@ -1,0 +1,152 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('buscadorestudiantes:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+var io  = require("socket.io")(server);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+
+//desarrollo del chat usando socket.io
+var usuariosLogeados = [];
+var marcadores = [];
+
+io.sockets.on("connection", function(socket){
+
+  //cuando el cliente emita su usuario
+  socket.on("agrega usuario", function(usuario){
+ 
+    //console.log(usuario);
+    
+    //validacion de doble usuario 
+    usuariosLogeados.push(usuario); // se aguarda en el arreglo
+
+    io.sockets.emit("usuarioLogeado",usuario);
+
+    io.sockets.emit("usuarios",usuariosLogeados); //emitimos a los demas usuarios cuando se conecte
+
+    //Cuando el usuario ya esta logeado  entonces podemos dejar que emita mensajes
+    socket.on("mensaje",function(usuario,mensaje,usuarioDestino,idMensaje){
+      //podemos emitir solo el mensaje pero tambien podemos ver que lo esta poniendo
+      //por ello mismo se le va pasar dos parametros para ver el usuario quien lo esta emitiendo
+      io.sockets.emit("mensaje",usuario,mensaje,usuarioDestino,idMensaje);
+
+    });
+
+    //agregar un marcador
+    socket.on("agregar marcador", function(usuario, marcador){
+
+      marcadores.push(marcador);
+
+      io.sockets.emit("agregar marcador",usuario, marcador);
+
+      io.sockets.emit("marcadores",marcadores);
+    });
+
+    //Cambio de posicion
+    socket.on("cambio posicion", function(usuario){
+ 
+      io.sockets.emit("cambio posicion",usuario);
+
+    });
+
+
+    //cuando un usuario se desconecte, se elimina su respectivo usuario de nuestro arreglo y lo semitimos a todos los demas
+    socket.on("disconnect", function(socket){
+
+      usuariosLogeados.splice(usuariosLogeados.indexOf(usuario), 1);
+
+      io.sockets.emit("usuarios",usuariosLogeados); 
+
+    });
+
+  });
+
+  
+
+});

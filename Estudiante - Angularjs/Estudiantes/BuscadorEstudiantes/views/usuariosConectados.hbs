@@ -1,0 +1,27 @@
+<style>
+    .borderChat{
+        -webkit-border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-radius-topleft: 5px;
+        -moz-border-radius-topright: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    .boxShadowChat{
+        -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+        -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+    }
+</style>
+
+<div id="contenidoChat" style="position: absolute;bottom: 0px;">
+    <div class="borderChat boxShadowChat" id="usuariosLogeados" style="width: 200px;height: 230px;border:0px solid #ccc;position:relative;bottom:  0px;z-index: 9;background: #fff;max-height: 230px;margin-left: 10px;-webkit-transition: max-height 0.8s;-moz-transition: max-height 0.8s;transition: max-height 0.8s;float:left;margin-left:20px">
+        <div class="borderChat" style="border: 0px solid #ccc;height: 35px;background-color: rgb(51, 122, 183);">
+            <span style="padding-left: 25px;padding-top: 9px;position: absolute;color: #FFF;">Usuarios</span>
+            <span id="SalirChatUsuarios" onclick="salirSistema();" data-abierto="0" class="glyphicon glyphicon-log-out" style="color: #fff;position: absolute;right: 0px;padding-top: 10px;padding-right: 10px;cursor: pointer;"></span>
+        <span class="glyphicon glyphicon-user" style="font-size: 15px;padding-top: 10px;position: absolute;padding-left: 5px;color: #FFF;"></span>
+        </div>
+        <div id="usuariosLinea" style="padding-top: 5px;padding-left: 5px;overflow-y:  scroll;max-height:  230px;height: 195px;">
+    </div>
+    </div>
+</div>
