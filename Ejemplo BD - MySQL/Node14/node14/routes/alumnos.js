@@ -13,6 +13,17 @@ router.get('/', function(req, res, next) {
     });
 });
 
+
+router.get('/getDatosAlumnos', function(req, res, next) {
+    bd.query('SELECT id,nombre,apellido,edad FROM usuarios', function(error, results, fields){
+        if (error) {            
+            console.log('error en el listado');
+            return;
+        }    
+        res.json(results);
+    });
+});
+
 router.get('/datos', function(req, res, next) {
 
   var datos =  {
