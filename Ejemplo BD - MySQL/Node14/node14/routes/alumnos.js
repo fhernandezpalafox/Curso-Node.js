@@ -4,7 +4,7 @@ var router = express.Router();
 var bd=require('./bd');
 
 router.get('/', function(req, res, next) {
-    bd.query('SELECT id,nombre,apellido,edad FROM usuarios', function(error, results, fields){
+    bd.query('SELECT id,nombre,apellido,edad,imagen FROM usuarios', function(error, results, fields){
         if (error) {            
             console.log('error en el listado');
             return;
@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/getDatosAlumnos', function(req, res, next) {
-    bd.query('SELECT id,nombre,apellido,edad FROM usuarios', function(error, results, fields){
+    bd.query('SELECT id,nombre,apellido,edad,imagen FROM usuarios', function(error, results, fields){
         if (error) {            
             console.log('error en el listado');
             return;
