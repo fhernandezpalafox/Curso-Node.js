@@ -4,9 +4,8 @@ var fs = require('fs');
 
 
 //Creaccion del archivo
-
-fs.writeFile('./archivoPrueba.txt','Este es un texto un poco largo\nRealizado por' +
-	'felipe HP',function(error){
+fs.writeFile('./archivoPrueba.txt','Este es un texto un poco largo..',
+                      function(error){
 	if (error) 
 	{
 		console.log(error)
@@ -32,7 +31,6 @@ var servidor = http.createServer(function(req,resp){
 
    resp.writeHead(200,{'Content-Type':'text/html'});
    resp.write('<html><head></head><body> Los Datos leidos son: '+datosArchivo+'</body></html>');
-    //N(n)
    resp.end();
 
 });
