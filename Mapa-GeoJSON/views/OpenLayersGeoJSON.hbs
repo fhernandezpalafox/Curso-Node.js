@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KML</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.3.2/css/ol.css" type="text/css">
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.3.2/build/ol.js"></script>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <div id="info">&nbsp;</div>
+    <script>
+
+      var map = new ol.Map({
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          }),
+          new ol.layer.Vector({
+            source: new ol.source.Vector({
+              url: '/geojson/capa1.geojson',
+              format: new ol.format.GeoJSON()
+            })
+          })
+        ],
+        target: 'map',
+        controls: ol.control.defaults({
+          attributionOptions: /** @type {olx.control.AttributionOptions} */ ({
+            collapsible: false
+          })
+        }),
+        view: new ol.View({
+          center: [-11099999, 2100000],
+          zoom: 8
+        })
+      });
+
+    </script>
+  </body>
+</html>

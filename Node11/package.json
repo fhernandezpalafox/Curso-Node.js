@@ -1,0 +1,14 @@
+{
+  "name": "node11",
+  "version": "1.0.0",
+  "description": "uso de archivos en express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felipe Hernandez",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}

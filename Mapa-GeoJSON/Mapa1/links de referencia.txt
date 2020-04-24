@@ -1,7 +1,0 @@
-https://mygeodata.cloud/
-
-
-https://mygeodata.cloud/converter/
-
-
-https://mygeodata.cloud/converter/kml-to-geojson

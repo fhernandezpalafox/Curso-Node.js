@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<style type="text/css">   
+   html { height: 100% }   
+   body { height: 100%; margin: 0px; padding: 0px }   
+   #map { height: 100% } 
+</style> 
+<title>Prueba de cargar archivos GeoJSON</title>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXnZb4ry73f962B6rLZHcHJkUCmqKgpu8&callback=initMap">
+    </script>
+<script type="text/javascript"> 
+
+  var map;
+
+  function initMap() {
+
+   var myLatlng = new google.maps.LatLng(21.15138, -101.71171); 
+
+   map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 20,
+    center: myLatlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+
+  // Carga de todas las capas  en un Mapa
+  map.data.loadGeoJson(
+      '/geojson/capa1.geojson');
+
+    map.data.loadGeoJson(
+      '/geojson/capa2.geojson');  
+
+       map.data.loadGeoJson(
+      '/geojson/capa3.geojson');  
+
+        map.data.loadGeoJson(
+      '/geojson/Indicaciones-de-Avenida-Universidad-301-B-Lomas-del-Sol-37157-Leon-Gto.-Mexico-a-Avenida-Universidad-301-B-Lomas-del-Sol-37157-Leon-Gto.-Mexico.geojson');  
+
+       map.data.loadGeoJson(
+      '/geojson/Indicaciones-de-Avenida-Universidad-604-Lomas-del-Sol-37123-Leon-Gto.-Mexico-a-Rectoria.geojson'); 
+
+        map.data.loadGeoJson(
+      '/geojson/Indicaciones-de-Manuel-Lopez-Sanabria-101-Lomas-del-Campestre-37150-Leon-Gto.-Mexico-a-Universo-212-Fraccionamiento-del-Mirador-Campestre-37156-Leon-Gto.-Mexico.geojson'); 
+  }
+</script>
+</head>
+<body>
+  <div id="map"></div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<script type="text/javascript" src="jquery.min.js"></script>
+
+<script type="text/javascript" src="bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+
+
+<script type="text/javascript" src="jquery.ValidationEngine-es.js"></script>
+<script type="text/javascript" src="jquery.ValidationEngine.js"></script>
+<link rel="stylesheet" type="text/css" href="validationEngine.jquery.css">
+
+</head>
+<body>
+  
+  <center>
+     <div class="content centrar">
+<div id="form_wrapper" class="form_wrapper">
+    
+    <form class="login active" action="acceso" method="POST" id="frmformulario" style="margin-bottom: 0px">
+<div class="column" style="width: 100% !important;text-align: left">
+<h3 style="padding-left: 15px;">Login</h3>
+<div style="text-align: center">
+    <div id='errorlogin'>
+            </div>
+</div>
+<div style="padding: 10px 15px 0px 15px;">
+    <label>Usuario</label>
+    <input type="text" name="usuario" id="usuario"  onfocus="" class="form-control validate[required]" style="height: 45px;"/>
+    </div>
+    <div style="clear: both;height: 10px"></div>
+<div style="padding: 0px 15px 0px 15px;">
+        <label>Contrase&ntilde;a</label>
+        <input type="password" name="pass" id="pass"   onfocus="" onkeypress=";" class="form-control validate[required]" style="height: 45px;"/>
+    </div>  
+</div>
+<div style="clear: both;height: 10px"></div>
+<div class="form-group">
+    <a style="cursor: pointer;color: #428BCA;font-size: 14px;text-decoration: none" onclick="">
+     <center style="">Olvide mi contraseña</center>  
+    </a>  
+    <div style="clear: both;height: 10px"></div>
+    <a style="cursor: pointer;color: #428BCA;font-size: 14px;text-decoration: none">
+     <center style="">Regístrate </center>  
+    </a>  
+ </div>
+  <div class="bottom">
+      <center>
+          <input type="submit" value="Ingresar"  style="width: 80%;margin-top: 14px;height: 45px;"  class="btn btn-lg btn-primary btn-block" />         
+      </center>      
+    <div class="clear"></div>
+  </div>
+</form>   
+  </div>
+ 
+    
+ </div>
+ </center>
+
+<style type="text/css">
+  /*  centrar  un centenido  es este caso  el login de acceso*/
+.centrar {
+    overflow: hidden;
+    position: absolute;
+    left: 36%;
+    top: 30%;
+    margin-top: -75px;
+    -moz-box-shadow: 1px 1px 7px #ccc;
+    -webkit-box-shadow: 1px 1px 7px #ccc;
+    -o-box-shadow: 1px 1px 7px #ccc;
+    box-shadow: 3px 3px 7px #ccc;
+    width: 332px;
+    border: 1px solid #CCC;
+    height: 400px;
+}
+</style>
+
+<script type="text/javascript">
+   $(function() {
+       $('#frmformulario').validationEngine({
+           scroll: false
+       });    
+   });
+</script>
+</body>
+</html>

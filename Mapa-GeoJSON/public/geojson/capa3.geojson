@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Punto 3", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ -101.7111106, 21.1513693, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Mi museo", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": -1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "Point", "coordinates": [ -101.7111348, 21.1516432, 0.0 ] } },
+{ "type": "Feature", "properties": { "Name": "Línea 3", "description": null, "timestamp": null, "begin": null, "end": null, "altitudeMode": null, "tessellate": 1, "extrude": 0, "visibility": -1, "drawOrder": null, "icon": null }, "geometry": { "type": "LineString", "coordinates": [ [ -101.7111495, 21.1516282, 0.0 ], [ -101.7111133, 21.1514068, 0.0 ] ] } }
+]
+}

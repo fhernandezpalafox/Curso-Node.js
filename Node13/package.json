@@ -1,0 +1,15 @@
+{
+  "name": "node13",
+  "version": "1.0.0",
+  "description": "pase de parametos por get y post usando express",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felipe Hernandez",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4"
+  }
+}
