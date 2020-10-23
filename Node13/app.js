@@ -15,7 +15,7 @@ app.post('/acceso', function (req, res) {
      var pagina = "<html><head></head><body>"+
      "Nombre de usuario: "+usuario+"<br/>"+
      "Clave: "+password+""+
-     "</body>/html>";
+     "</body></html>";
     
      res.send(pagina);
 });
