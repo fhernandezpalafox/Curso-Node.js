@@ -100,9 +100,9 @@ function acceso(request, response){
         if (formulario["usuario"] != undefined && formulario["pass"] != undefined) {
 
 	           pagina = "<html><head></head><body>"+
-	         "Nombre de usuario: "+formulario["usuario"]+"<br/>"+
-	         "Clave: "+formulario["pass"]+""+
-	         "</body></html>";
+                      "Nombre de usuario: "+formulario["usuario"]+"<br/>"+
+                      "Clave: "+formulario["pass"]+""+
+                      "</body></html>";
         }else {
         	   pagina = "<html><head></head><body>Debes poner tus credenciales primero</body></html>";
         }
